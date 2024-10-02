@@ -7,7 +7,7 @@ $amount = get_int_required(amount);
 $pass = get_required(pass);
 
 if (getAccount($domain, world) == null)
-    tokenScriptReg($domain, world, "world/api/token_withdrawal.php");
+    tokenScriptReg($domain, world, "mfm-world/api/token_withdrawal.php");
 
 if ($domain == $gas_domain) error("cannot deposit gas");
 

@@ -1,6 +1,6 @@
 function openSelectToken(success) {
     window.$mdBottomSheet.show({
-        templateUrl: '/world/scene/fight/index.html',
+        templateUrl: '/mfm-world/scene/fight/index.html',
         controller: function ($scope) {
             addFormats($scope)
 

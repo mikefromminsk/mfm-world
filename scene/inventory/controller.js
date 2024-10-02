@@ -1,6 +1,6 @@
 function openInventory(success) {
     window.$mdBottomSheet.show({
-        templateUrl: '/world/scene/inventory/index.html',
+        templateUrl: '/mfm-world/scene/inventory/index.html',
         controller: function ($scope) {
             addFormats($scope)
 
@@ -15,7 +15,7 @@ function openInventory(success) {
                     getPin((pin) => {
                         response.active.forEach((token) => {
                             wallet.calcPass(token.domain, pin, (pass) => {
-                                postContractWithGas("world", "api/token_deposit.php", {
+                                postContractWithGas("mfm-world", "api/token_deposit.php", {
                                     address: wallet.address(),
                                     domain: token.domain,
                                     amount: token.balance,
@@ -40,7 +40,7 @@ function openInventory(success) {
             $scope.setMode("tokens")
 
             function inventory(){
-                postContract("world", "api/inventory.php", {
+                postContract("mfm-world", "api/inventory.php", {
                     path: `avatar/${wallet.address()}`
                 }, function (response) {
                     $scope.inventory = response.inventory
@@ -50,7 +50,7 @@ function openInventory(success) {
 
             $scope.recipes = {}
             function recipes() {
-                postContract("world", "api/settings.php", {
+                postContract("mfm-world", "api/settings.php", {
                 }, function (response) {
                     $scope.recipes = response.recipe
                     $scope.$apply()

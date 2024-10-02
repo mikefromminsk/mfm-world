@@ -20,7 +20,7 @@ function main($scope, $mdBottomSheet, $mdDialog, $mdToast) {
     var game = new Phaser.Game(config)
 
     function loadScene(scene) {
-        postContractWithGas("world", "api/scene_insert.php", {
+        postContractWithGas("mfm-world", "api/scene_insert.php", {
             scene: scene,
             width: 100,
             height: 100

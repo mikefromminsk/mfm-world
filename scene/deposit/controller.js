@@ -1,12 +1,12 @@
 function openWorldDeposit(success) {
     openSelectToken(function (domain) {
         window.$mdBottomSheet.show({
-            templateUrl: '/world/scene/deposit/index.html',
+            templateUrl: '/mfm-world/scene/deposit/index.html',
             controller: function ($scope) {
                 addFormats($scope)
 
                 $scope.domain = domain
-                $scope.to_address = "world"
+                $scope.to_address = "mfm-world"
                 $scope.block_to_address = true
 
                 postContract("mfm-wallet", "token/api/tokens.php", {
@@ -18,7 +18,7 @@ function openWorldDeposit(success) {
                 $scope.send = function () {
                     getPin((pin) => {
                         wallet.calcPass(domain, pin, (pass) => {
-                            postContractWithGas("world", "api/token_deposit.php", {
+                            postContractWithGas("mfm-world", "api/token_deposit.php", {
                                 address: wallet.address(),
                                 domain: domain,
                                 amount: $scope.amount,

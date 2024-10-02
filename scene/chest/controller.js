@@ -1,11 +1,11 @@
 function openChest(scene, pos, success) {
     window.$mdBottomSheet.show({
-        templateUrl: '/world/scene/chest/index.html',
+        templateUrl: '/mfm-world/scene/chest/index.html',
         controller: function ($scope) {
             addFormats($scope)
 
             $scope.chestGet = function (domain) {
-                postContractWithGas("world", "api/send.php", {
+                postContractWithGas("mfm-world", "api/send.php", {
                     from_path: scene + `/blocks/` + pos,
                     to_path: `avatar/` + wallet.address(),
                     domain: domain,
@@ -14,7 +14,7 @@ function openChest(scene, pos, success) {
             }
 
             $scope.chestPut = function (domain) {
-                postContractWithGas("world", "api/send.php", {
+                postContractWithGas("mfm-world", "api/send.php", {
                     from_path: `avatar/` + wallet.address(),
                     to_path: scene + `/blocks/` + pos,
                     domain: domain,
@@ -23,7 +23,7 @@ function openChest(scene, pos, success) {
             }
 
             function avatarInventory(){
-                postContract("world", "api/inventory.php", {
+                postContract("mfm-world", "api/inventory.php", {
                     path: `avatar/` + wallet.address()
                 }, function (response) {
                     $scope.inventory = response.inventory
@@ -32,7 +32,7 @@ function openChest(scene, pos, success) {
             }
 
             function chestInventory(){
-                postContract("world", "api/inventory.php", {
+                postContract("mfm-world", "api/inventory.php", {
                     path: scene + `/blocks/` + pos
                 }, function (response) {
                     $scope.chest = response.inventory

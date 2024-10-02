@@ -1,6 +1,6 @@
 function openCraft(domain, success) {
     window.$mdBottomSheet.show({
-        templateUrl: '/world/scene/craft/index.html',
+        templateUrl: '/mfm-world/scene/craft/index.html',
         controller: function ($scope) {
             addFormats($scope)
 
@@ -9,7 +9,7 @@ function openCraft(domain, success) {
             $scope.amount = 1
 
             $scope.create = function () {
-                postContractWithGas("world", "api/craft.php", {
+                postContractWithGas("mfm-world", "api/craft.php", {
                     domain: domain,
                     amount: $scope.amount,
                 }, function () {
@@ -22,7 +22,7 @@ function openCraft(domain, success) {
             }
 
             function loadRecipe() {
-                postContract("world", "api/recipe.php", {
+                postContract("mfm-world", "api/recipe.php", {
                     domain: domain,
                 }, function (response) {
                     $scope.recipe = response.recipe

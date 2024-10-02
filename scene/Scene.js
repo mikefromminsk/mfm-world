@@ -33,14 +33,14 @@ class Scene extends Utils {
         this.disableUpdates = true;
         if (this.new_scene_name !== this.scene_name) {
             this.scene_name = this.new_scene_name;
-            postContractWithGas("world", "api/scene_load.php", {
+            postContractWithGas("mfm-world", "api/scene_load.php", {
                 scene: this.scene_name,
                 address: wallet.address(),
             }, () => {
                 this.reload();
             })
         }
-        postContract("world", "api/scene.php", {
+        postContract("mfm-world", "api/scene.php", {
             scene: this.scene_name,
             address: wallet.address(),
         }, (response) => {
@@ -241,7 +241,7 @@ class Scene extends Utils {
             if (speedX != this.lastSpeedX && speedY != this.lastSpeedY) {
                 this.lastSpeedX = speedX;
                 this.lastSpeedY = speedY;
-                postContract("world", "api/move.php", {
+                postContract("mfm-world", "api/move.php", {
                     scene: this.scene_name,
                     address: wallet.address(),
                     x: this.player.x,
@@ -371,20 +371,20 @@ class Scene extends Utils {
             } else if (values.object.domain.endsWith('_spawner')) {
 
             } else {
-                postContractWithGas("world", "api/touch.php", {
+                postContractWithGas("mfm-world", "api/touch.php", {
                     scene: this.scene_name,
                     pos: pos
                 }, () => this.reload());
             }
         }
         if (values.avatar) {
-            postContractWithGas("world", "api/fight.php", {
+            postContractWithGas("mfm-world", "api/fight.php", {
                 fight_pos: pos,
                 defender_path: "avatar/" + values.avatar.address,
             }, () => this.reload());
         }
         if (values.mob) {
-            postContractWithGas("world", "api/fight.php", {
+            postContractWithGas("mfm-world", "api/fight.php", {
                 fight_pos: pos,
                 defender_path: this.scene_name + "/mobs/" + pos,
             }, () => this.reload());
@@ -398,14 +398,14 @@ class Scene extends Utils {
                     let y = Math.floor(pointer.worldY / this.cellSize);
                     if (this.inHand.endsWith('_generator')) {
                         var domain = this.inHand.replace('_generator', '');
-                        postContract("world", "api/settings.php", {}, (response) => {
+                        postContract("mfm-world", "api/settings.php", {}, (response) => {
                             for (let i = 0; i < Math.floor(Math.random() * 10) + 10; i++) {
                                 let x = Math.floor(Math.random() * 20)//this.gridWidth)
                                 let y = Math.floor(Math.random() * 20)//this.gridHeight)
                                 let pos = x + ':' + y;
                                 if (this.touchGrid[x][y].domain == null) {
                                     this.touchGrid[x][y].domain = domain
-                                    postContractWithGas("world", "api/put_block.php", { // change to send and first put is domain set
+                                    postContractWithGas("mfm-world", "api/put_block.php", { // change to send and first put is domain set
                                         scene: this.scene_name,
                                         domain: domain,
                                         pos: pos,
@@ -414,7 +414,7 @@ class Scene extends Utils {
                                     if (response.info != null)
                                         for (let lootDomain of (Object.keys(response.info[domain].loot) || {})) {
                                             let amount = response.info[domain].loot[lootDomain]
-                                            postContractWithGas("world", "api/send.php", {
+                                            postContractWithGas("mfm-world", "api/send.php", {
                                                 from_path: `avatar/` + wallet.address(),
                                                 to_path: this.scene_name + `/blocks/` + pos,
                                                 domain: lootDomain,
@@ -426,7 +426,7 @@ class Scene extends Utils {
                         })
                         setTimeout(() => this.reload(), 3000);
                     } else {
-                        postContractWithGas("world", "api/put_block.php", {
+                        postContractWithGas("mfm-world", "api/put_block.php", {
                             scene: this.scene_name,
                             domain: this.inHand,
                             pos: x + ':' + y
