@@ -1,0 +1,8 @@
+{
+    "name": "mfm-world",
+    "version": "1.0.5",
+    "author": "x29a100@gmail.com",
+    "dependencies": {
+        "mfm-wallet": "^1.0.0"
+    }
+}
