@@ -6,43 +6,14 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-world/api/utils.php";
 $address = get_required(address);
 $password = get_required(password);
 
-if (!DEBUG) error("cannot use not in debug session");
+onlyInDebug();
 
-function requestAccount($domain, $address)
-{
-    return http_post("/mfm-token/account.php", [
-        domain => $domain,
-        address => $address,
-    ]);
-}
-
-function postWithGas($url, $params)
-{
-    $domain = $GLOBALS[gas_domain];
-    $address = $GLOBALS[address];
-    $password = $GLOBALS[password];
-    $account = requestAccount($domain, $address);
-    $key = tokenKey($domain, $address, $password, $account[prev_key]);
-    $next_hash = tokenNextHash($domain, $address, $password, $key);
-    requestEquals($url, array_merge($params, [
-        gas_address => $GLOBALS[address],
-        gas_pass => "$key:$next_hash",
-    ]));
-}
 
 requestEquals("/mfm-token/init.php", [
     address => $address,
     password => $password
 ]);
 
-function installApp($domain, $app_domain)
-{
-    postWithGas("/mfm-wallet/store/api/archive.php", [domain => $app_domain]);
-    postWithGas("/mfm-wallet/store/api/install.php", [
-        domain => $domain,
-        app_domain => $app_domain,
-    ]);
-}
 
 function launchList($tokens, $address, $password)
 {
