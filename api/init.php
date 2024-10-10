@@ -48,7 +48,7 @@ function launchList($tokens, $address, $password)
     }
 }
 
-
+// https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/
 $tokens = [
     [domain => "rock"],
     [domain => "oak_tree_generator"],
